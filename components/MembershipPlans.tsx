@@ -69,7 +69,7 @@ export default function MembershipPlans() {
     <section id="plans" className="py-24 bg-[#0c0c0c]">
       {/* Top divider */}
       <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-0">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-24" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-white/8 to-transparent mb-24" />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">

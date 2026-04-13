@@ -50,7 +50,7 @@ export default function Testimonials() {
     <section id="testimonials" className="py-24 bg-[#0f0f0f]">
       {/* Divider */}
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-24" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-white/8 to-transparent mb-24" />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">

@@ -141,7 +141,7 @@ export default function FeaturesSection() {
 
                 {/* Bottom accent bar */}
                 <div
-                  className="absolute bottom-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-350 origin-left"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-350 origin-left"
                   style={{ background: f.accent }}
                 />
               </motion.div>

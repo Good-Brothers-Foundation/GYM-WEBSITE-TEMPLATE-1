@@ -20,7 +20,7 @@ export default function LocationSection() {
     <section id="location" className="py-24 bg-[#0f0f0f]">
       {/* Divider */}
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-24" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-white/8 to-transparent mb-24" />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8" ref={ref}>
@@ -151,7 +151,7 @@ export default function LocationSection() {
             />
 
             {/* Overlay gradient for aesthetic */}
-            <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#0f0f0f] to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-12 bg-linear-to-b from-[#0f0f0f] to-transparent pointer-events-none" />
           </motion.div>
         </div>
 

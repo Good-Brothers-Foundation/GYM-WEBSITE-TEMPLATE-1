@@ -27,7 +27,7 @@ export default function HeroSection() {
     >
       {/* Layered background */}
       <div className="absolute inset-0 grid-bg" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0f0f0f]/40 to-[#0f0f0f]" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-[#0f0f0f]/40 to-[#0f0f0f]" />
 
       {/* Radial glow blobs */}
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-[#22c55e]/5 blur-[120px] pointer-events-none" />

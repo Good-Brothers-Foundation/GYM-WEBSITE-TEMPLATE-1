@@ -117,7 +117,7 @@ export default function GallerySection() {
     <section id="gallery" className="py-24 bg-[#0c0c0c]">
       {/* Divider */}
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-24" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-white/8 to-transparent mb-24" />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -153,7 +153,7 @@ export default function GallerySection() {
               />
 
               {/* Overlay Gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 group-hover:via-black/20 transition-all duration-300`} />
+              <div className={`absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/80 group-hover:via-black/20 transition-all duration-300`} />
 
               {/* Dark overlay on hover */}
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all duration-300" />
@@ -165,7 +165,7 @@ export default function GallerySection() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: i * 0.1 + 0.2 }}
                 >
-                  <p className={`text-xs font-bold tracking-[0.15em] uppercase mb-2 bg-gradient-to-r ${item.gradient} to-transparent bg-clip-text text-transparent`}>
+                  <p className={`text-xs font-bold tracking-[0.15em] uppercase mb-2 bg-linear-to-r ${item.gradient} to-transparent bg-clip-text text-transparent`}>
                     {item.category}
                   </p>
                   <h3 className="text-white text-lg font-bold group-hover:text-[#22c55e] transition-colors duration-200">
