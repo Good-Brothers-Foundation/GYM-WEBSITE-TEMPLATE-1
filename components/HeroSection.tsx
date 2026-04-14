@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, ChevronDown, Users, Star } from "lucide-react";
+import { MessageCircle, ChevronDown, Star, Volume2, VolumeX } from "lucide-react";
 
 const WA = "https://wa.me/919310256281";
 const TRIAL = "https://wa.me/919310256281?text=Hi%2C%20I%20want%20to%20book%20a%20free%20trial!";
@@ -13,96 +14,163 @@ const STATS = [
   { value: "3+", label: "Years Trusted" },
 ];
 
+const AVATARS = ["RS", "PM", "AK", "VD"];
+
 const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.55, delay, ease: "easeOut" as const },
+  transition: { duration: 0.5, delay, ease: "easeOut" as const },
 });
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, []);
+
+  const toggleMute = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  };
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16"
+      className="relative h-screen min-h-[600px] max-h-[1000px] flex flex-col justify-center items-center overflow-hidden"
     >
-      {/* Layered background */}
-      <div className="absolute inset-0 grid-bg" />
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-[#0f0f0f]/40 to-[#0f0f0f]" />
+      {/* ── VIDEO BACKGROUND ── */}
+      {/* Drop your gym video at: /public/videos/gym-bg.mp4          */}
+      {/* Free sources: coverr.co · pexels.com · pixabay.com         */}
+      {/* Search "gym workout" — pick a 15-30s loop, 1080p, <15 MB   */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        aria-hidden="true"
+      >
+        <source src="/videos/gym.mp4" type="video/mp4" />
+      </video>
 
-      {/* Radial glow blobs */}
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-[#22c55e]/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[400px] rounded-full bg-[#f97316]/4 blur-[100px] pointer-events-none" />
+      {/* ── OVERLAYS ── */}
+      {/* Base dark coat so text is always readable */}
+      <div className="absolute inset-0 bg-black/58 pointer-events-none" />
+      {/* Radial vignette — darkens edges */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.52) 100%)",
+        }}
+      />
+      {/* Bottom fade into page background color */}
+      <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#0f0f0f] to-transparent pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-32 flex flex-col items-center text-center">
+      {/* ── CONTENT ── */}
+      {/* gap-4 keeps everything tight enough to fit one viewport height */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-5 sm:px-8 flex flex-col items-center text-center gap-4">
+
         {/* Badge */}
-        <motion.div {...fade(0.1)} className="mb-8">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#22c55e]/25 bg-[#22c55e]/8 text-[#22c55e] text-xs font-semibold tracking-widest uppercase">
+        <motion.div {...fade(0.1)}>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#22c55e]/30 bg-[#22c55e]/10 text-[#22c55e] text-[10px] sm:text-xs font-semibold tracking-widest uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
             #1 Fitness Destination in Dwarka
           </span>
         </motion.div>
 
         {/* Headline */}
+        {/* clamp() scales with viewport so it never overflows vertically */}
         <motion.h1
           {...fade(0.2)}
-          className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.0] tracking-tight mb-6"
+          className="font-oswald font-black leading-[0.92] tracking-tight text-white"
+          style={{ fontSize: "clamp(40px, 7.5vw, 86px)" }}
         >
           TRANSFORM
           <br />
-          <span className="text-[#22c55e] text-glow">YOUR BODY</span>
-          <br />
-          <span className="text-gray-300 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            AT THE BEST GYM
+          <span
+            className="text-[#22c55e]"
+            style={{
+              textShadow:
+                "0 0 50px rgba(34,197,94,0.55), 0 0 100px rgba(34,197,94,0.2)",
+            }}
+          >
+            YOUR BODY
           </span>
           <br />
-          <span className="text-gray-300 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            IN DWARKA
+          <span
+            style={{
+              fontSize: "clamp(26px, 5vw, 58px)",
+              color: "rgba(255,255,255,0.7)",
+            }}
+          >
+            AT THE BEST GYM IN DWARKA
           </span>
         </motion.h1>
 
         {/* Subheading */}
         <motion.p
-          {...fade(0.3)}
-          className="text-base sm:text-lg text-gray-400 max-w-xl mx-auto leading-relaxed mb-8"
+          {...fade(0.28)}
+          className="text-gray-400 max-w-md leading-relaxed"
+          style={{ fontSize: "clamp(13px, 1.5vw, 15px)" }}
         >
-          Expert coaching, world-class equipment, and a community that holds you accountable —
-          every single day.
+          Expert coaching, world-class equipment, and a community that holds you
+          accountable — every single day.
         </motion.p>
 
-        {/* Trust line */}
-        <motion.div {...fade(0.35)} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-12 w-full px-4">
+        {/* Trust row */}
+        <motion.div
+          {...fade(0.34)}
+          className="flex items-center justify-center gap-4 flex-wrap"
+        >
           <div className="flex -space-x-2">
-            {["RS", "PM", "AK", "VD"].map((i) => (
+            {AVATARS.map((i) => (
               <div
                 key={i}
-                className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-[#22c55e]/20 border border-[#22c55e]/30 flex items-center justify-center text-[11px] sm:text-[10px] font-bold text-[#22c55e]"
+                className="w-8 h-8 rounded-full bg-[#22c55e]/20 border-2 border-[#22c55e]/35 flex items-center justify-center text-[9px] font-bold text-[#22c55e]"
               >
                 {i}
               </div>
             ))}
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs sm:text-sm text-gray-400">
+          <div className="flex items-center gap-2 text-xs text-gray-400">
             <div className="flex gap-0.5">
               {[1, 2, 3, 4, 5].map((s) => (
-                <Star key={s} className="w-3.5 h-3.5 fill-[#f97316] text-[#f97316]" />
+                <Star key={s} className="w-3 h-3 fill-[#f97316] text-[#f97316]" />
               ))}
             </div>
-            <span className="text-center sm:text-left">
-              <span className="text-white font-semibold">500+ Members</span> already transforming
+            <span>
+              <span className="text-white font-semibold">500+ Members</span>{" "}
+              already transforming
             </span>
           </div>
         </motion.div>
 
         {/* CTA buttons */}
-        <motion.div {...fade(0.4)} className="flex flex-col sm:flex-row justify-center gap-3 w-full sm:w-auto mb-20">
+        <motion.div
+          {...fade(0.4)}
+          className="flex flex-col sm:flex-row justify-center gap-3 w-full sm:w-auto"
+        >
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
             id="hero-wa-btn"
-            className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#22c55e] text-black font-bold text-base hover:bg-[#16a34a] hover:scale-105 active:scale-95 transition-all duration-200 glow-green w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#22c55e] text-black font-bold text-sm hover:bg-[#16a34a] hover:scale-105 active:scale-95 transition-all duration-200 w-full sm:w-auto"
+            style={{
+              boxShadow:
+                "0 0 28px rgba(34,197,94,0.4), 0 0 70px rgba(34,197,94,0.12)",
+            }}
           >
-            <MessageCircle className="w-5 h-5" />
+            <MessageCircle className="w-4 h-4" />
             Join Now on WhatsApp
           </a>
           <a
@@ -110,41 +178,69 @@ export default function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             id="hero-trial-btn"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/15 text-white font-semibold text-base hover:border-[#22c55e]/50 hover:text-[#22c55e] hover:bg-[#22c55e]/5 active:scale-95 transition-all duration-200 w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 text-white font-semibold text-sm hover:border-[#22c55e]/50 hover:text-[#22c55e] hover:bg-[#22c55e]/5 active:scale-95 transition-all duration-200 w-full sm:w-auto"
           >
-            Book Free Trial
-            <span className="text-gray-500 group-hover:text-[#22c55e] transition-colors">→</span>
+            Book Free Trial{" "}
+            <span className="text-gray-500">→</span>
           </a>
         </motion.div>
 
         {/* Stats row */}
         <motion.div
-          {...fade(0.5)}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-10 border-t border-white/8 w-full max-w-4xl"
+          {...fade(0.48)}
+          className="grid grid-cols-4 gap-0 pt-4 border-t border-white/10 w-full max-w-2xl"
         >
-          {STATS.map((s) => (
-            <div key={s.label} className="flex flex-col items-center">
-              <p className="font-oswald text-3xl sm:text-4xl font-bold text-[#22c55e] text-glow leading-none">
+          {STATS.map((s, i) => (
+            <div
+              key={s.label}
+              className={`flex flex-col items-center ${
+                i < STATS.length - 1 ? "border-r border-white/10" : ""
+              }`}
+            >
+              <p
+                className="font-oswald font-bold text-[#22c55e] leading-none"
+                style={{
+                  fontSize: "clamp(20px, 3vw, 30px)",
+                  textShadow: "0 0 22px rgba(34,197,94,0.4)",
+                }}
+              >
                 {s.value}
               </p>
-              <p className="text-gray-500 text-sm mt-2 font-medium">{s.label}</p>
+              <p className="text-gray-500 text-[10px] sm:text-[11px] mt-1 font-medium uppercase tracking-wide">
+                {s.label}
+              </p>
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* Scroll hint */}
+      {/* ── SCROLL HINT ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-600"
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-600 z-10"
       >
-        <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
-        <motion.div animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
-          <ChevronDown size={16} />
+        <span className="text-[9px] tracking-[0.2em] uppercase">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 4, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          <ChevronDown size={13} />
         </motion.div>
       </motion.div>
+
+      {/* ── MUTE TOGGLE ── */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        onClick={toggleMute}
+        aria-label={muted ? "Unmute video" : "Mute video"}
+        className="absolute bottom-5 right-5 z-20 w-9 h-9 rounded-full border border-white/20 bg-black/50 flex items-center justify-center text-white/60 hover:border-[#22c55e]/50 hover:text-[#22c55e] transition-all duration-200"
+      >
+        {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+      </motion.button>
     </section>
   );
 }
